@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: go-app
-        image: shivak981/go-app: {{ .Values.image.tag }}
+        image: shivak981/go-app:{{ .Values.image.tag }}
         ports:
         - containerPort: 9090

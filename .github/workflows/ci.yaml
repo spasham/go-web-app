@@ -1,0 +1,35 @@
+name: ci
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'README.md'
+      - 'helm/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2
+    
+    - name: set up go 1.22
+      uses: actions/setup-go@v2
+
+    - name: Build 
+      run: go build -o go-web-app
+
+    - name: Test
+      run: go test ./...
+
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Run golangci-lint
+        uses: actions/golangci-lint-action@v6
+        with:
+          version: v1.56.2
